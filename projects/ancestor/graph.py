@@ -15,7 +15,8 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        self.vertices[vertex_id] = set()
+        if not self.vertices.get(vertex_id):
+            self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
@@ -139,6 +140,31 @@ class Graph:
                 if new_path:
                     return new_path
         return None
+
+    def get_ancestor(self, starting_vertex):
+        """
+        Print each vertex in depth-first order
+        beginning from starting_vertex.
+        """
+        if self.vertices.get(starting_vertex) == set():
+            return -1
+        s = Stack()
+        already = set()
+        s.push(starting_vertex)
+        current = starting_vertex
+        while s.size():
+            now = s.pop()
+            if now not in already:
+                if s.size() and self.vertices.get(now) == set():
+                    now2 = s.pop()
+                    if now2 < now:
+                        now = now2
+                current = now
+                already.add(now)
+            for v in self.vertices[now]:
+                if v not in already:
+                    s.push(v)
+        return current
 
 
 if __name__ == '__main__':
