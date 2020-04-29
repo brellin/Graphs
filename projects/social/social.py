@@ -49,8 +49,8 @@ class SocialGraph:
         self.friendships = {}
 
         # Add users
-        for num in range(num_users):
-            self.add_user(f'user{num}')
+        for user in range(num_users):
+            self.add_user(f'user{user}')
 
         # Create friendships
         for index in self.users:
